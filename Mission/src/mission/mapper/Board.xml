@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="mission.mapper.BoardMapper">
+	<cache />
+	
+	<select id="boardList" resultType="Board">
+		select * from board5	 order by b_id desc
+	</select>
+	
+	<insert id="wInsert" parameterType="Board">
+		insert into board5(
+			b_id, b_name, b_title, b_content, b_pwd, b_date, b_hit		
+		)values(
+			mission.NEXTVAL, #{b_name}, #{b_title}, #{b_content}, #{b_pwd}, SYSDATE, 0
+		)
+	</insert>
+	
+	<select id="selectBoard" parameterType="int" resultType="Board">
+		select * from board5 where b_id=#{b_id}
+	</select>
+
+	<update id="detailBoard" parameterType="int">
+		update board5 set
+			b_hit = b_hit+1
+			where b_id = #{b_id}
+	</update>
+	
+	<update id="wUpdate" parameterType="Board">
+		update board5 set
+			b_title = #{b_title}, b_content = #{b_content}	
+			where b_id=#{b_id}
+	</update>
+	
+	<delete id="deleteBoard" parameterType="int">
+		delete from board5 where b_id=#{b_id}
+	</delete>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
